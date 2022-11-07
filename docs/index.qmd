@@ -1,0 +1,84 @@
+---
+title: "**Awesome** Title"
+subtitle: "Where is this talk?"
+date: "2022-01-01"
+author: "Dean Marchiori"
+institute: deanmarchiori.rbind.io
+format: 
+  revealjs:
+    theme: [simple, extra.scss]
+    incremental: true
+    slide-number: true
+    show-slide-number: all
+    footer: "deanmarchiori.github.io/dm-talks/"
+editor: visual
+execute: 
+  echo: false
+  warning: false
+---
+
+```{r}
+#| label: library
+#| include: false
+library(tidyverse)
+```
+
+```{r}
+#| label: helpers
+#| include: false
+
+
+```
+
+# Intro
+
+# Background
+
+Put More **slides** here.
+
+## Slides
+
+Here is some **cool** text
+
+::: notes
+Speaker notes go here.
+:::
+
+# Code
+
+```{r}
+#| code-line-numbers: "|3-4|7-9"
+#| echo: true
+
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+```
+
+
+## Links  
+
+
+
+# **Cheers, Any Questions?** 

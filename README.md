@@ -1,20 +1,17 @@
-# Talk Title
-
-This is a slide template I have put on github so that I can get started with talks easier.
+# BlueySearch: how to build and deploy a basic data science backed web app in R
 
 # Abstract
 
-# Slide available [here](https://deanmarchiori.github.io/dm-talks)
+How to build and deploy a basic data science backed web app in R
 
-# Take home messages 
 
-1. Point one
-1. Point two
-1. Point three
+# Slide available [here](https://deanmarchiori.github.io/siligong-data-talk)
 
 # Thanks
 
-# Resources
+* Siligong Valey  
+* Easy Agile 
+* Novigi  
 
 # Colophon
 

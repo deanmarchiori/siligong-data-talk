@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Dean Marchiori">
-  <meta name="dcterms.date" content="2022-01-01">
-  <title>Awesome Title</title>
+  <meta name="dcterms.date" content="2022-11-24">
+  <title>BlueySearch</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,28 +384,25 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title"><strong>Awesome</strong> Title</h1>
-  <p class="subtitle">Where is this talk?</p>
+  <h1 class="title"><strong>Bluey</strong>Search</h1>
+  <p class="subtitle">how to build and deploy a basic data science backed web app in R</p>
   <p class="author">Dean Marchiori</p>
   <p class="institute">deanmarchiori.rbind.io</p>
-  <p class="date">2022-01-01</p>
+  <p class="date">2022-11-24</p>
 </section>
 
-<section id="intro" class="title-slide slide level1 center">
-<h1>Intro</h1>
-
+<section id="the-problem" class="slide level2">
+<h2>The Problem</h2>
+<blockquote>
+<p>“Dad, put on the Bluey where Bingo is in hospital and they talk on the video thing” - my 3 year old</p>
+</blockquote>
 </section>
-
-<section>
-<section id="background" class="title-slide slide level1 center">
-<h1>Background</h1>
-<p>Put More <strong>slides</strong> here.</p>
-</section>
-<section id="slides" class="slide level2">
-<h2>Slides</h2>
-<p>Here is some <strong>cool</strong> text</p>
+<section id="solution" class="slide level2">
+<h2>Solution</h2>
+<p>A website that lets you type in the vague descriptions of a small child and it will return a mathematically ranked list of closest matching Bluey episodes.</p>
+<p><a href="https://deanmarchiori.shinyapps.io/blueysearch/">BlueySearch App</a></p>
 <aside class="notes">
-<p>Speaker notes go here.</p>
+<p>Bingo is in hospital and they talk on the video things</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -417,46 +414,345 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section></section>
-<section>
-<section id="code" class="title-slide slide level1 center">
-<h1>Code</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="|3-4|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Define UI for application that draws a histogram</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="co"># Application title</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">titlePanel</span>(<span class="st">"Old Faithful Geyser Data"</span>),</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a>    <span class="co"># Sidebar with a slider input for number of bins </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>    <span class="fu">sidebarLayout</span>(</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        <span class="fu">sidebarPanel</span>(</span>
-<span id="cb1-12"><a href="#cb1-12"></a>            <span class="fu">sliderInput</span>(<span class="st">"bins"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13"></a>                        <span class="st">"Number of bins:"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14"></a>                        <span class="at">min =</span> <span class="dv">1</span>,</span>
-<span id="cb1-15"><a href="#cb1-15"></a>                        <span class="at">max =</span> <span class="dv">50</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>                        <span class="at">value =</span> <span class="dv">30</span>)</span>
-<span id="cb1-17"><a href="#cb1-17"></a>        ),</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a>        <span class="co"># Show a plot of the generated distribution</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>        <span class="fu">mainPanel</span>(</span>
-<span id="cb1-21"><a href="#cb1-21"></a>           <span class="fu">plotOutput</span>(<span class="st">"distPlot"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        )</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    )</span>
-<span id="cb1-24"><a href="#cb1-24"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+
+<img data-src="img/blueysearch.png" class="r-stretch"></section>
+<section id="what-this-talk-is-really-about" class="slide level2">
+<h2>What this talk is <strong>really</strong> about</h2>
+<div>
+<ul>
+<li class="fragment">Doing something basic but interesting in R<br>
+</li>
+<li class="fragment">Turning it into a web app</li>
+<li class="fragment">Deploying to a cloud service<br>
+</li>
+<li class="fragment"><strong>BONUS ROUND:</strong> Deploying with Docker<br>
+</li>
+</ul>
 </div>
 </section>
+<section id="what-is-r" class="slide level2">
+<h2>What is R?</h2>
+<ul>
+<li class="fragment">R is a free software environment for statistical computing and graphics. <sup>1</sup></li>
+<li class="fragment">R ranks 12th in the TIOBE index (Oct 22)<br>
+</li>
+<li class="fragment"><a href="https://cran.r-project.org/">https://cran.r-project.org/</a></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1" role="doc-endnote"><p>Better than Python</p></li></ol></aside></section>
+<section id="comparing-text-documents" class="slide level2">
+<h2>Comparing text / documents</h2>
+<table>
+<thead>
+<tr class="header">
+<th>statement</th>
+<th>text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Wollongong is a cool place to live</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Wollongong has some cool beaches</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>I like the beaches in Sydney</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            Terms
+Docs         cool live wollongong beaches sydney
+  statement1    1    1          1       0      0
+  statement2    1    0          1       1      0
+  statement3    0    0          0       1      1</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="cosine-similarity" class="slide level2">
+<h2>Cosine similarity</h2>
+<p><span class="math display">\[
+\frac{\bf{A \cdot B }}{\lVert A \rVert \lVert B \rVert} = \frac{\sum_{i=1}^{n}A_iB_i}{\sqrt{\sum_{i=1}^{n}A_i^2} \sqrt{\sum_{i=1}^{n}B_i^2}}
+\]</span></p>
+
+<img data-src="img/cosine.jpg" class="r-stretch quarto-figure-center"><p class="caption">source: https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity</p></section>
+<section id="comparing-text-documents-1" class="slide level2 smaller">
+<h2>Comparing text / documents</h2>
+<p>Document-Term matrix</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            Terms
+Docs         cool live wollongong beaches sydney
+  statement1    1    1          1       0      0
+  statement2    1    0          1       1      0
+  statement3    0    0          0       1      1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\bf{A} = [1, 1, 1, 0, 0] \\
+\bf{B}= [1, 0, 1, 1, 0]
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\frac{\bf{A \cdot B }}{\lVert A \rVert \lVert B \rVert} = \frac{\sum_{i=1}^{n}A_iB_i}{\sqrt{\sum_{i=1}^{n}A_i^2} \sqrt{\sum_{i=1}^{n}B_i^2}}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Distance matrix</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>           statement1 statement2 statement3
+statement1         NA                      
+statement2  0.6666667         NA           
+statement3  0.0000000  0.4082483         NA</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="the-data" class="slide level2 smaller">
+<h2>The data</h2>
+<ul>
+<li class="fragment">IMDB</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 92%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Magic Xylophone</td>
+<td style="text-align: left;">As Bluey and Bingo begin to squabble over their magic xylophone (that has the power to freeze their Dad in space and time) Dad seizes control and freezes Bluey, leaving Bingo as her only hope.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hospital</td>
+<td style="text-align: left;">Doctor Bluey is needed for assistance when Dad gets a very curious x-ray from Nurse Bingo. It seems that he has a cat in his tummy, leaving Bluey no choice but for her to operate immediately.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 141   2</code></pre>
+</div>
+</div>
+</section>
+<section id="wranging-text-data" class="slide level2">
+<h2>Wranging text data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>episodes <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">paste</span>(title, description)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(word, description)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,783 × 2
+   title           word     
+   &lt;chr&gt;           &lt;chr&gt;    
+ 1 Magic Xylophone magic    
+ 2 Magic Xylophone xylophone
+ 3 Magic Xylophone as       
+ 4 Magic Xylophone bluey    
+ 5 Magic Xylophone and      
+ 6 Magic Xylophone bingo    
+ 7 Magic Xylophone begin    
+ 8 Magic Xylophone to       
+ 9 Magic Xylophone squabble 
+10 Magic Xylophone over     
+# … with 4,773 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-stop-words-as-to-a-the" class="slide level2">
+<h2>Remove Stop Words (as, to, a, the, …)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>episodes <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">paste</span>(title, description)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(word, description) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">anti_join</span>(stop_words) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,131 × 2
+   title           word     
+   &lt;chr&gt;           &lt;chr&gt;    
+ 1 Magic Xylophone magic    
+ 2 Magic Xylophone xylophone
+ 3 Magic Xylophone bluey    
+ 4 Magic Xylophone bingo    
+ 5 Magic Xylophone begin    
+ 6 Magic Xylophone squabble 
+ 7 Magic Xylophone magic    
+ 8 Magic Xylophone xylophone
+ 9 Magic Xylophone power    
+10 Magic Xylophone freeze   
+# … with 2,121 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="document-term-matrix" class="slide level2">
+<h2>Document-Term Matrix</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                  Terms
+Docs                               dog army stop journey hide hides bored ups
+  Army                               1    1    0       0    0     0     0   0
+  Bumpy and the Wise Old Wolfhound   1    0    0       0    0     0     0   0
+  Sheep Dog                          1    0    1       0    0     0     0   0
+  Shops                              0    0    0       0    0     0     0   0
+  Sleepytime                         0    0    1       0    0     0     0   0
+  Smoochy Kiss                       0    0    0       0    1     0     0   0
+  Space                              0    0    0       1    0     0     0   0
+  Spy Game                           0    0    0       0    0     0     0   1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  141 1023</code></pre>
+</div>
+</div>
+</section>
+<section id="end-to-end" class="slide level2">
+<h2>End to End</h2>
+
+<img data-src="img/flow.drawio.png" class="r-stretch"></section>
+<section id="what-is-shiny" class="slide level2">
+<h2>What is <strong>Shiny?</strong></h2>
+<p>“Shiny is an <strong>R package</strong> that makes it easy to build <strong>interactive web apps</strong> straight from R. You can host standalone apps on a webpage or embed them in R Markdown documents or build dashboards. You can also extend your Shiny apps with CSS themes, htmlwidgets, and JavaScript actions.”</p>
+<p>source: https://shiny.rstudio.com/</p>
+</section>
+<section id="inside-shiny" class="slide level2 smaller">
+<h2>Inside Shiny</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="|3-24|26-39|41-42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># Define UI for application that draws a histogram</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a>    <span class="co"># Application title</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>    <span class="fu">titlePanel</span>(<span class="st">"Old Faithful Geyser Data"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8"></a></span>
+<span id="cb11-9"><a href="#cb11-9"></a>    <span class="co"># Sidebar with a slider input for number of bins </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>    <span class="fu">sidebarLayout</span>(</span>
+<span id="cb11-11"><a href="#cb11-11"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb11-12"><a href="#cb11-12"></a>            <span class="fu">sliderInput</span>(<span class="st">"bins"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>                        <span class="st">"Number of bins:"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14"></a>                        <span class="at">min =</span> <span class="dv">1</span>,</span>
+<span id="cb11-15"><a href="#cb11-15"></a>                        <span class="at">max =</span> <span class="dv">50</span>,</span>
+<span id="cb11-16"><a href="#cb11-16"></a>                        <span class="at">value =</span> <span class="dv">30</span>)</span>
+<span id="cb11-17"><a href="#cb11-17"></a>        ),</span>
+<span id="cb11-18"><a href="#cb11-18"></a></span>
+<span id="cb11-19"><a href="#cb11-19"></a>        <span class="co"># Show a plot of the generated distribution</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>        <span class="fu">mainPanel</span>(</span>
+<span id="cb11-21"><a href="#cb11-21"></a>           <span class="fu">plotOutput</span>(<span class="st">"distPlot"</span>)</span>
+<span id="cb11-22"><a href="#cb11-22"></a>        )</span>
+<span id="cb11-23"><a href="#cb11-23"></a>    )</span>
+<span id="cb11-24"><a href="#cb11-24"></a>)</span>
+<span id="cb11-25"><a href="#cb11-25"></a></span>
+<span id="cb11-26"><a href="#cb11-26"></a><span class="co"># Define server logic required to draw a histogram</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb11-28"><a href="#cb11-28"></a></span>
+<span id="cb11-29"><a href="#cb11-29"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb11-30"><a href="#cb11-30"></a>        <span class="co"># generate bins based on input$bins from ui.R</span></span>
+<span id="cb11-31"><a href="#cb11-31"></a>        x    <span class="ot">&lt;-</span> faithful[, <span class="dv">2</span>]</span>
+<span id="cb11-32"><a href="#cb11-32"></a>        bins <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length.out =</span> input<span class="sc">$</span>bins <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb11-33"><a href="#cb11-33"></a></span>
+<span id="cb11-34"><a href="#cb11-34"></a>        <span class="co"># draw the histogram with the specified number of bins</span></span>
+<span id="cb11-35"><a href="#cb11-35"></a>        <span class="fu">hist</span>(x, <span class="at">breaks =</span> bins, <span class="at">col =</span> <span class="st">'darkgray'</span>, <span class="at">border =</span> <span class="st">'white'</span>,</span>
+<span id="cb11-36"><a href="#cb11-36"></a>             <span class="at">xlab =</span> <span class="st">'Waiting time to next eruption (in mins)'</span>,</span>
+<span id="cb11-37"><a href="#cb11-37"></a>             <span class="at">main =</span> <span class="st">'Histogram of waiting times'</span>)</span>
+<span id="cb11-38"><a href="#cb11-38"></a>    })</span>
+<span id="cb11-39"><a href="#cb11-39"></a>}</span>
+<span id="cb11-40"><a href="#cb11-40"></a></span>
+<span id="cb11-41"><a href="#cb11-41"></a><span class="co"># Run the application </span></span>
+<span id="cb11-42"><a href="#cb11-42"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="deploying-to-shinyapps.io" class="slide level2">
+<h2>Deploying to shinyapps.io</h2>
+<p>Live demo?</p>
+<div class="fragment">
+<p><img data-src="img/shiny-price.png"></p>
+<aside class="notes">
+<p>https://deanmarchiori.shinyapps.io/test-app/</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="dockerizing-it" class="slide level2">
+<h2><strong>Dockerizing</strong> it</h2>
+<pre><code>.
+├── Dockerfile
+├── siligong-app
+   └── app.R
+   └── data.csv
+</code></pre>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" data-code-line-numbers="|1|3|5|7|9"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">FROM</span> rocker/shiny:latest</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-q</span> <span class="at">-e</span> <span class="st">'install.packages("glue")'</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="kw">COPY</span> /siligong-app /srv/shiny-server/siligong-app</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">EXPOSE</span> 3838</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="kw">CMD</span> [<span class="st">"/usr/bin/shiny-server"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="dockerizing-it-1" class="slide level2">
+<h2>Dockerizing it</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="ex">docker</span> build <span class="at">-t</span> siligong .</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-d</span> <span class="at">-p</span> 3838:3838 siligong</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>http://localhost:3838/siligong-app/</p>
+
+<img data-src="img/shiny-eg.png" class="r-stretch"></section>
 <section id="links" class="slide level2">
 <h2>Links</h2>
-</section></section>
-<section id="cheers-any-questions" class="title-slide slide level1 center">
-<h1><strong>Cheers, Any Questions?</strong></h1>
-<div class="footer footer-default">
-<p>deanmarchiori.github.io/dm-talks/</p>
+<div>
+<ul>
+<li>https://github.com/deanmarchiori/siligong-data</li>
+<li>https://deanmarchiori.shinyapps.io/blueysearch/</li>
+<li>https://github.com/deanmarchiori/dockerised-shiny</li>
+<li>https://rocker-project.org/</li>
+</ul>
 </div>
 </section>
+<section id="cheers-any-questions" class="title-slide slide level1 center">
+<h1>Cheers, <strong>any questions?</strong></h1>
+<div class="footer">
+<p>Contact Me: deanmarchiori.rbind.io | deanmarchiori@gmail.com</p>
+</div>
+<div class="footer footer-default">
+<p>deanmarchiori.github.io/siligong-data-talk/</p>
+</div>
+</section>
+
+
     </div>
   </div>
 

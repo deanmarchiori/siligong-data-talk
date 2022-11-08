@@ -1,7 +1,7 @@
 ---
-title: "**Awesome** Title"
-subtitle: "Where is this talk?"
-date: "2022-01-01"
+title: "**Bluey**Search"
+subtitle: "how to build and deploy a basic data science backed web app in R"
+date: "2022-11-24"
 author: "Dean Marchiori"
 institute: deanmarchiori.rbind.io
 format: 
@@ -10,7 +10,7 @@ format:
     incremental: true
     slide-number: true
     show-slide-number: all
-    footer: "deanmarchiori.github.io/dm-talks/"
+    footer: "deanmarchiori.github.io/siligong-data-talk/"
 editor: visual
 execute: 
   echo: false
@@ -30,25 +30,192 @@ library(tidyverse)
 
 ```
 
-# Intro
+## The Problem  
 
-# Background
+> "Dad, put on the Bluey where Bingo is in hospital and they talk on the video thing" 
+> - my 3 year old
 
-Put More **slides** here.
+## Solution 
 
-## Slides
+A website that lets you type in the vague descriptions of a small child and it will return a mathematically ranked list of closest matching Bluey episodes.  
 
-Here is some **cool** text
+ [BlueySearch App](https://deanmarchiori.shinyapps.io/blueysearch/)
 
-::: notes
-Speaker notes go here.
+::: {.notes}
+ Bingo is in hospital and they talk on the video things
+::: 
+
+---
+  
+![](img/blueysearch.png)
+
+ 
+## What this talk is **really** about  
+
+::: {.incremental}
+- Doing something basic but interesting in R  
+- Turning it into a web app 
+- Deploying to a cloud service  
+- **BONUS ROUND:** Deploying with Docker   
 :::
 
-# Code
+## What is R?  
+
+- R is a free software environment for statistical computing and graphics.  ^[Better than Python]
+- R ranks 12th in the TIOBE index (Oct 22)  
+- [https://cran.r-project.org/](https://cran.r-project.org/)
+
+
+## Comparing text / documents 
+
+statement | text  
+----|--------
+1 | Wollongong is a cool place to live
+2 | Wollongong has some cool beaches  
+3 | I like the beaches in Sydney  
+
+. . . 
 
 ```{r}
-#| code-line-numbers: "|3-4|7-9"
-#| echo: true
+library(tidyverse)
+library(tidytext)
+library(tm)
+text1 <- "Wollongong is a cool place to live"
+text2 <- "Wollongong has some cool beaches"
+text3 <- "I like the beaches in Sydney"
+
+text <- bind_rows(statement1 = text1, statement2 = text2, statement3 = text3)  |> 
+  pivot_longer(everything()) |> 
+  unnest_tokens(word, value) %>% 
+  anti_join(stop_words) %>% 
+  count(name, word)
+
+dtm <- cast_dtm(text, term = word, document = name, value = n)
+as.matrix(dtm)
+```
+
+
+
+
+## Cosine similarity  
+
+$$
+\frac{\bf{A \cdot B }}{\lVert A \rVert \lVert B \rVert} = \frac{\sum_{i=1}^{n}A_iB_i}{\sqrt{\sum_{i=1}^{n}A_i^2} \sqrt{\sum_{i=1}^{n}B_i^2}}
+$$
+![source: https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity](img/cosine.jpg)
+
+
+
+## Comparing text / documents  {.smaller}
+
+Document-Term matrix
+
+```{r}
+text1 <- "Wollongong is a cool place to live"
+text2 <- "Wollongong has some cool beaches"
+text3 <- "I like the beaches in Sydney"
+
+text <- bind_rows(statement1 = text1, statement2 = text2, statement3 = text3)  |> 
+  pivot_longer(everything()) |> 
+  unnest_tokens(word, value) %>% 
+  anti_join(stop_words) %>% 
+  count(name, word)
+
+dtm <- cast_dtm(text, term = word, document = name, value = n)
+as.matrix(dtm)
+```
+
+. . . 
+
+$$
+\bf{A} = [1, 1, 1, 0, 0] \\
+\bf{B}= [1, 0, 1, 1, 0]
+$$
+. . . 
+ 
+$$
+\frac{\bf{A \cdot B }}{\lVert A \rVert \lVert B \rVert} = \frac{\sum_{i=1}^{n}A_iB_i}{\sqrt{\sum_{i=1}^{n}A_i^2} \sqrt{\sum_{i=1}^{n}B_i^2}}
+$$  
+
+. . . 
+
+Distance matrix
+
+```{r}
+proxy::simil(as.matrix(dtm), method = 'cosine', diag = T) 
+```
+
+
+## The data {.smaller}
+
+- IMDB  
+
+```{r}
+episodes <- read_rds('data/episodes.rds') |> 
+  select(-img) 
+
+knitr::kable(slice(episodes, 1:2))
+
+dim(episodes)
+```
+
+
+## Wranging text data    
+
+```{r echo = TRUE}
+#| code-line-numbers: "|3"
+episodes %>% 
+  mutate(description = paste(title, description)) %>% 
+  tidytext::unnest_tokens(word, description)  
+```
+
+## Remove Stop Words (as, to, a, the, ...)
+
+```{r echo = TRUE}
+#| code-line-numbers: "4"
+
+episodes %>% 
+  mutate(description = paste(title, description)) %>% 
+  tidytext::unnest_tokens(word, description) %>% 
+  anti_join(stop_words) 
+```
+
+## Document-Term Matrix
+
+```{r}
+desc_tokens <- episodes %>% 
+  mutate(description = paste(title, description)) %>% 
+  unnest_tokens(word, description) %>% 
+  anti_join(stop_words) %>% 
+  count(title, word) %>% 
+  mutate(n = ifelse(n > 0, 1, 0))
+
+dtm <- cast_dtm(desc_tokens, term = word, document = title, value = n)
+dtm_mat <- as.matrix(dtm)
+
+dtm_mat[c(1, 15, 102:107), c(2, 1, 433, 806, 496, 497, 900, 814)]
+
+dim(dtm_mat)
+```
+
+
+## End to End  
+
+![](img/flow.drawio.png)
+
+## What is **Shiny?**  
+
+"Shiny is an **R package** that makes it easy to build **interactive web apps** straight from R. You can host standalone apps on a webpage or embed them in R Markdown documents or build dashboards. You can also extend your Shiny apps with CSS themes, htmlwidgets, and JavaScript actions."  
+
+
+source: https://shiny.rstudio.com/
+
+
+
+## Inside Shiny  {.smaller}
+
+```{r echo=T, eval=FALSE}
+#| code-line-numbers: "|3-24|26-39|41-42"
 
 library(shiny)
 
@@ -74,11 +241,91 @@ ui <- fluidPage(
         )
     )
 )
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white',
+             xlab = 'Waiting time to next eruption (in mins)',
+             main = 'Histogram of waiting times')
+    })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
 ```
 
 
+## Deploying to shinyapps.io  
+
+Live demo?
+
+. . .  
+
+![](img/shiny-price.png)
+
+::: {.notes}
+https://deanmarchiori.shinyapps.io/test-app/
+:::
+
+## **Dockerizing** it  
+
+```
+.
+├── Dockerfile
+├── siligong-app
+   └── app.R
+   └── data.csv
+
+```
+
+. . . 
+
+
+```{dockerfile echo=T, eval=FALSE}
+#| code-line-numbers: "|1|3|5|7|9"
+
+FROM rocker/shiny:latest
+
+RUN R -q -e 'install.packages("glue")'
+
+COPY /siligong-app /srv/shiny-server/siligong-app
+
+EXPOSE 3838
+
+CMD ["/usr/bin/shiny-server"]
+```
+
+## Dockerizing it  
+
+```{bash echo=T, eval=FALSE}
+docker build -t siligong .
+docker run --rm -d -p 3838:3838 siligong
+```
+
+http://localhost:3838/siligong-app/
+
+![](img/shiny-eg.png)
+
 ## Links  
 
+::: {.nonincremental}
++ https://github.com/deanmarchiori/siligong-data
++ https://deanmarchiori.shinyapps.io/blueysearch/
++ https://github.com/deanmarchiori/dockerised-shiny
++ https://rocker-project.org/
+:::
+
+# Cheers, **any questions?**   
+
+::: footer
+Contact Me: deanmarchiori.rbind.io | deanmarchiori@gmail.com 
+:::
 
 
-# **Cheers, Any Questions?** 
